@@ -1,0 +1,23 @@
+From 535c2d39c0dbc27399e58a1b758bb60c6b4f4b9c Mon Sep 17 00:00:00 2001
+From: A Frederick Christensen <dwl@ivories.org>
+Date: Thu, 14 Aug 2025 17:56:50 -0500
+Subject: [PATCH] Force cursor shape update after move/resize client
+
+---
+ dwl.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/dwl.c b/dwl.c
+index 12f441e..5bafd2b 100644
+--- a/dwl.c
++++ b/dwl.c
+@@ -661,6 +661,9 @@ buttonpress(struct wl_listener *listener, void *data)
+            selmon = xytomon(cursor->x, cursor->y);
+            setmon(grabc, selmon, 0);
+            grabc = NULL;
++           /* Force update to cursor shape */
++           xytonode(cursor->x, cursor->y, NULL, &c, NULL, NULL, NULL);
++           focusclient(c, 1);
+            return;
+        }
+        cursor_mode = CurNormal;
