@@ -30,6 +30,12 @@ static char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 /* logging */
 static int log_level = WLR_ERROR;
 
+/* setupenv */
+static const Env envs[] = {
+	/* variable			value */
+	{ "XDG_CURRENT_DESKTOP",	"wlroots" },
+};
+
 /* AT LEAST ONE rule must exist. Define at least an EXAMPLE rule here. */
 static const Rule rules[] = {
 	/* app_id             title       tags mask     isfloating   monitor */
