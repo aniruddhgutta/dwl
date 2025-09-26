@@ -10,6 +10,7 @@ static const int smartgaps                 = 0;  /* 1 means no outer gap when th
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
 static const unsigned int gappx            = 10; /* gap pixel between windows */
 static const unsigned int borderpx         = 1;  /* border pixel of windows */
+static const char *colors_dir              = {"/path/to/colors"}; /* path to color definitions */
 static const int showbar                   = 1; /* 0 means no bar */
 static const int topbar                    = 1; /* 0 means bottom bar */
 static const char *fonts[]                 = {"monospace:size=10"};
@@ -138,6 +139,7 @@ static const Key keys[] = {
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,     spawn,          {.v = termcmd} },
 	{ MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_b,          togglebar,      {0} },
 	{ MODKEY,                    XKB_KEY_r,          regions,        SHCMD("grim -g \"$(slurp)\"") },
+    { MODKEY,                    XKB_KEY_n,          reload_colors,  {0} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
