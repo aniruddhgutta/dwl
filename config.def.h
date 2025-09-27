@@ -82,9 +82,9 @@ static const Layout layouts[] = {
  *
  * AT LEAST ONE monitor rule must exist. Define at least a NULL default rule here. */
 static const MonitorRule monrules[] = {
-   /* name            mfact  nmaster scale layout       rotate/reflect                x    y */
-   { NULL,            0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
-   { "eDP-1_EXAMPLE", 0.5f,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
+    /* name            mfact  nmaster scale layout       rotate/reflect               x    y  resx resy rate mode adaptive*/
+    { NULL,            0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL, -1,  -1,  0,  0,  0.0f,  0,  1},
+	{ "eDP-1_EXAMPLE", 0.5f,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,  0,   0,  0,  0,  120.000f,  -1,  1},
 };
 
 /* keyboard */
