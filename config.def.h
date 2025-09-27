@@ -32,6 +32,9 @@ static char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 /* logging */
 static int log_level = WLR_ERROR;
 
+/* passthrough */
+static int passthrough = 0;
+
 /* window resizing */
 /* resize_corner:
  * 0: top-left
@@ -216,6 +219,7 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_7, XKB_KEY_ampersand,                  6),
 	TAGKEYS(          XKB_KEY_8, XKB_KEY_asterisk,                   7),
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                  8),
+	{ WLR_MODIFIER_ALT|WLR_MODIFIER_LOGO|WLR_MODIFIER_CTRL|WLR_MODIFIER_SHIFT, XKB_KEY_Escape, togglepassthrough, {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} },
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
