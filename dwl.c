@@ -12,6 +12,7 @@
 #include <sys/wait.h>
 #include <time.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <regex.h>
 #include <wayland-server-core.h>
 #include <wlr/backend.h>
@@ -2651,11 +2652,54 @@ resize(Client *c, struct wlr_box geo, int interact)
 	wlr_scene_subsurface_tree_set_clip(&c->scene_surface->node, &clip);
 }
 
+static const char*
+perform_socket_handover(void)
+{
+	char *socket_name = NULL;
+	int socket_fd = -1;
+
+	/* Parse wayland socket handover environment variables */
+	if (getenv("WAYLAND_SOCKET_NAME")) {
+		socket_name = getenv("WAYLAND_SOCKET_NAME");
+		unsetenv("WAYLAND_SOCKET_NAME");
+	}
+
+	if (getenv("WAYLAND_SOCKET_FD")) {
+		socket_fd = atoi(getenv("WAYLAND_SOCKET_FD"));
+		unsetenv("WAYLAND_SOCKET_FD");
+		fcntl(socket_fd, F_SETFD, FD_CLOEXEC);
+	}
+
+	/* Warn if either environment variable is missing */
+	if (!socket_name && socket_fd == -1) {
+		return NULL;
+	} else if (!socket_name) {
+		fprintf(stderr, "Wayland socket handover failed, missing WAYLAND_SOCKET_FD\n");
+		return NULL;
+	} else if (socket_fd == -1) {
+		fprintf(stderr, "Wayland socket handover failed, missing WAYLAND_SOCKET_NAME\n");
+		return NULL;
+	}
+
+	/* Add socket to the Wayland display */
+	if (wl_display_add_socket_fd(dpy, socket_fd) < 0) {
+		fprintf(stderr, "Wayland socket handover failed, failed to add socket FD to display\n");
+		return NULL;
+	}
+
+	return socket_name;
+}
+
 void
 run(char *startup_cmd)
 {
+	/* Attempt Wayland socket handover. */
+	const char *socket = perform_socket_handover();
+
 	/* Add a Unix socket to the Wayland display. */
-	const char *socket = wl_display_add_socket_auto(dpy);
+	if (!socket)
+		socket = wl_display_add_socket_auto(dpy);
+
 	if (!socket)
 		die("startup: display_add_socket_auto");
 	setenv("WAYLAND_DISPLAY", socket, 1);
