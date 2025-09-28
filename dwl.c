@@ -1780,6 +1780,11 @@ addscratchpad(const Arg *arg)
 		setfloating(c, 1);
 	}
 	wl_list_insert(&scratchpad_clients, &c->link_temp);
+    
+    c->tags = 0;
+	arrange(selmon);
+	focusclient(focustop(selmon), 1);
+    scratchpad_visible = 0;
 }
 
 void
