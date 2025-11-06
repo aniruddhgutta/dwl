@@ -10,7 +10,7 @@ static const int smartgaps                 = 0;  /* 1 means no outer gap when th
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
 static const unsigned int gappx            = 10; /* gap pixel between windows */
 static const unsigned int borderpx         = 1;  /* border pixel of windows */
-static const char *colors_dir              = {"/home/vye/.cache/wal/colors.h"}; /* path to color definitions */
+static const char *colors_dir              = {"/home/vye/.cache/wal/dwl-colors"}; /* path to color definitions */
 static const int showbar                   = 1; /* 0 means no bar */
 static const int topbar                    = 1; /* 0 means bottom bar */
 static const char *fonts[]                 = {"monospace:size=10"};
@@ -51,21 +51,20 @@ static const int lock_cursor = 0;	/* 1: lock cursor, 0: don't lock */
 static const Env envs[] = {
 	/* variable			value */
 	{ "XDG_CURRENT_DESKTOP", "wlroots" },
-    { "ELECTRON_OZONE_PLATFORM_HINT", "wayland" },
+  { "ELECTRON_OZONE_PLATFORM_HINT", "wayland" },
 };
 
 /* autostart */
 static const char *const autostart[] = {
-    "dbus-update-activation-environment", "WAYLAND_DISPLAY", "XDG_CURRENT_DESKTOP", NULL,
-    "pipewire", NULL,
-    "mpd", NULL,
-    "mpd-notify", NULL,
-    "theme", "-r", NULL,
-    "foot", "--server", NULL,
-    "wl-clip-persist", "--clipboard", "regular", NULL,
-    "wl-paste", "--type", "text", "--watch", "cliphist", "store", NULL,
-    "wl-paste", "--type", "image", "--watch", "cliphist", "store", NULL,
-    NULL /* terminate */
+  "dbus-update-activation-environment", "WAYLAND_DISPLAY", "XDG_CURRENT_DESKTOP", NULL,
+  "pipewire", NULL,
+  "pipewire-pulse", NULL,
+  "theme", "-r", NULL,
+  "foot", "--server", NULL,
+  "wl-clip-persist", "--clipboard", "regular", NULL,
+  "wl-paste", "--type", "text", "--watch", "cliphist", "store", NULL,
+  "wl-paste", "--type", "image", "--watch", "cliphist", "store", NULL,
+  NULL /* terminate */
 };
 
 /* AT LEAST ONE rule must exist. Define at least an EXAMPLE rule here. */
@@ -190,20 +189,22 @@ static const Key keys[] = {
     { MODKEY,                    XKB_KEY_a,          spawn,          SHCMD("thunar") },
     { MODKEY,                    XKB_KEY_s,          spawn,          SHCMD("footclient -T spotify spotify_player") },
     { MODKEY,                    XKB_KEY_e,          spawn,          SHCMD("footclient -T files sh -lc lf") },
-    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_M,          spawn,          SHCMD("footclient -T mpd ncmpcpp") },
+    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_M,          spawn,          SHCMD("footclient -T mpd rmpc") },
 	
     { MODKEY,                    XKB_KEY_r,          spawn,          SHCMD("power-menu -l") },
     { MODKEY,                    XKB_KEY_c,          spawn,          SHCMD("cliphist list | mew | cliphist decode | wl-copy") },
     { MODKEY,                    XKB_KEY_m,          spawn,          SHCMD("monitor-layout") },
     { MODKEY|WLR_MODIFIER_ALT,   XKB_KEY_m,          spawn,          SHCMD("wayland-graphics") },
     { MODKEY|WLR_MODIFIER_ALT,   XKB_KEY_l,          spawn,          SHCMD(". ~/.cache/wal/colors-plain && wlock -i $color2 -a $color3") },
+    { MODKEY|WLR_MODIFIER_ALT,   XKB_KEY_b,          spawn,          SHCMD("footclient -T btop btop") },
+    { MODKEY|WLR_MODIFIER_ALT,   XKB_KEY_s,          spawn,          SHCMD("footclient -T irc senpai") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_R,          spawn,          SHCMD("power-menu -p") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_E,          spawn,          SHCMD("emoji-menu") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_C,          spawn,          SHCMD("colorpick") },
 
     { MODKEY,                    XKB_KEY_w,          spawn,          SHCMD("theme -s") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W,          spawn,          SHCMD("theme -p") },
-    { WLR_MODIFIER_ALT|WLR_MODIFIER_SHIFT,  XKB_KEY_W,  spawn,       SHCMD("theme -m") },
+    { WLR_MODIFIER_ALT|WLR_MODIFIER_SHIFT, XKB_KEY_W, spawn,         SHCMD("theme -m") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_T,          spawn,          SHCMD("theme-menu") },
 
     { MODKEY,                    XKB_KEY_Left,       spawn,          SHCMD("volume -t") },
