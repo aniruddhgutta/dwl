@@ -10,7 +10,7 @@ static const int smartgaps                 = 0;  /* 1 means no outer gap when th
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
 static const unsigned int gappx            = 10; /* gap pixel between windows */
 static const unsigned int borderpx         = 1;  /* border pixel of windows */
-static const char *colors_dir              = {"/home/vye/.cache/wal/dwl-colors"}; /* path to color definitions */
+static const char *colors_dir              = {"/home/vye/.cache/reclr/suckless.txt"}; /* path to color definitions */
 static const int showbar                   = 1; /* 0 means no bar */
 static const int topbar                    = 1; /* 0 means bottom bar */
 static const char *fonts[]                 = {"monospace:size=10"};
@@ -174,7 +174,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *browsercmd[] = { "chromium", NULL };
+static const char *browsercmd[] = { "helium", NULL };
 static const char *termcmd[] = { "footclient", NULL };
 static const char *menucmd[] = { "mew-run", NULL };
 
